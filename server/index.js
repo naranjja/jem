@@ -28,9 +28,10 @@ app.use(
 
 app.use("/public", express.static(path.join(client, "public")))
 
-app.get("*", (req, res) => {
-    res.render(path.join(client, "src", "components", "Home", "Home"))
-})
+require("./views")(app, [
+    "login",
+    "home"
+])
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`)

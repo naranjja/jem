@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Minimalistic boilerplate to bootstrap a general purpose WA",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server",
+    "addUser": "node scripts/addUser"
   },
   "repository": {
     "type": "git",
