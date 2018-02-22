@@ -1,17 +1,11 @@
-<div class="ui top fixed menu">
-    <a href="/home">
-        <div class="link item">
-            <span>Home</span>
-        </div>
-    </a>
-    <div class="right menu">
-        <div class="link item" onClick="logout()">
-            <span>Logout</span>
-        </div>
-    </div>
-</div>
+.ui.top.fixed.menu
+    a(href="/home")
+        .link.item Home
+    .right.menu
+        .link.item(onClick="logout()") Logout
 
 script.
     const logout = () => {
-        console.log("logging out...")
+        $.get("/logout")
+        .then(() => window.location = "/login")
     }
