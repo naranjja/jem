@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Minimalistic boilerplate to bootstrap a general purpose WA",
   "scripts": {
+    "prod": "cross-env NODE_ENV=production PORT=80 node server",
     "dev": "nodemon server",
+    "start": "npm run prod",
     "addUser": "node scripts/addUser"
   },
   "repository": {
