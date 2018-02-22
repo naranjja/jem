@@ -1,0 +1,17 @@
+.ui.list
+    p Registered users:
+
+script.
+    $(() => {
+        $.get("/api/samples/users")
+        .then(users => {
+            users.forEach(user => {
+                $(".ui.list").append($(`
+                    <div class="item">
+                        <i class="user icon"></i>
+                        <div class="content">${user.username}</div>
+                    </div>
+                `))
+            })
+        })
+    })
