@@ -78,7 +78,8 @@ require("./views")(app, [
 
 require("./api")(app, [
     "samples",
-    "upload"
+    "upload",
+    "query"
 ])
 
 app.get("*", (req, res) => {
