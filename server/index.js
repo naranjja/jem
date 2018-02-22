@@ -59,21 +59,25 @@ const exposeModules = modules => {
 }
 
 exposeModules([
-    'datatables.net',
-    'datatables.net-se',
-    'datatables.net-buttons',
-    'datatables.net-buttons-se',
-    'jquery',
-    'jszip',
-    'pdfmake',
-    'highcharts',
-    'semantic-ui-css',
-    'sweetalert',
+    "datatables.net",
+    "datatables.net-se",
+    "datatables.net-buttons",
+    "datatables.net-buttons-se",
+    "jquery",
+    "jszip",
+    "pdfmake",
+    "highcharts",
+    "semantic-ui-css",
+    "sweetalert",
 ])
 
 require("./views")(app, [
     "login",
     "home"
+])
+
+require("./api")(app, [
+    "samples"
 ])
 
 app.get("*", (req, res) => {

@@ -1,6 +1,11 @@
 extends ../App/App
 
 block view
+
     include ../Menu
     include ../Break
-    a(href="/login") Go to Login
+    
+    .ui.container
+        .ui.segment
+            .ui.top.attached.label DataTables
+            include ../Table
