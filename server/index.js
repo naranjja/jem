@@ -28,6 +28,25 @@ app.use(
 
 app.use("/public", express.static(path.join(client, "public")))
 
+const exposeModules = modules => {
+    modules.forEach(module => {
+        app.use(`/node_modules/${module}`, express.static(path.join(client, "node_modules", module)))
+    })
+}
+
+exposeModules([
+    'datatables.net',
+    'datatables.net-se',
+    'datatables.net-buttons',
+    'datatables.net-buttons-se',
+    'jquery',
+    'jszip',
+    'pdfmake',
+    'highcharts',
+    'semantic-ui-css',
+    'sweetalert',
+])
+
 app.get("*", (req, res, next) => {
     res.locals.user = req.user || null
     next()
