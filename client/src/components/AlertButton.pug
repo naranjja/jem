@@ -1,0 +1,12 @@
+<br></br>
+
+.ui.large.alert.button(onClick="showAlert()") Trigger an alert
+
+script.
+    const showAlert = () => {
+        swal({
+            title: "It works!",
+            icon: "success",
+            text: "This is some alert"
+        })
+    }

@@ -1,0 +1,28 @@
+input.file.input(
+    type="file"
+    onChange="uploadFile(this.files[0])"
+    style={ display: "none" }
+)
+
+<br></br>
+
+.ui.large.upload.button(onClick="fileInput.click()") Upload some file
+
+script.
+    const fileInput = $(".file.input")
+    const uploadFile = (file) => {
+        const formData = new FormData()
+        formData.append("file", file)
+        $.ajax({
+            url: "/api/upload",
+            type: "post",
+            data: formData,
+            processData: false,
+            contentType: false
+        })
+        .then(() => {
+            fileInput.value = ""  // reset input
+            console.log("Uploaded file.")
+        })
+        .catch(err => console.log(err))
+    }
