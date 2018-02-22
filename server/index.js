@@ -5,6 +5,9 @@ const path = require("path")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
+const passport = require("passport")
+const auth = require("./lib/auth")
+const { ensureLoggedIn } = require("connect-ensure-login")
 
 const app = express()
 const root = path.resolve(__dirname, "..")
@@ -26,11 +29,32 @@ app.use(
     })
 )
 
+require("./lib/auth")(passport)
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.post("/login", passport.authenticate("local"), (req, res) => {
+    res.send(req.user)
+})
+
+app.get("/logout", (req, res) => {
+    req.logout()
+    res.sendStatus(200)
+})
+
+app.get("*", (req, res, next) => {
+    res.locals.user = req.user || null
+    next()
+})
+
 app.use("/public", express.static(path.join(client, "public")))
 
 const exposeModules = modules => {
     modules.forEach(module => {
-        app.use(`/node_modules/${module}`, express.static(path.join(client, "node_modules", module)))
+        app.use(
+            `/node_modules/${module}`, 
+            express.static(path.join(client, "node_modules", module))
+        )
     })
 }
 
@@ -46,11 +70,6 @@ exposeModules([
     'semantic-ui-css',
     'sweetalert',
 ])
-
-app.get("*", (req, res, next) => {
-    res.locals.user = req.user || null
-    next()
-})
 
 require("./views")(app, [
     "login",

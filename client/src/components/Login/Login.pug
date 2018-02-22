@@ -1,5 +1,57 @@
 extends ../App/App
 
 block view
-    p Login
-    a(href="/home") Go to Home
+
+    script(type='text/javascript' src='/node_modules/sweetalert/dist/sweetalert.min.js')
+
+    include ../Break
+
+    .ui.container
+        .ui.middle.aligned.center.aligned.grid(style={ height: "75%" })
+            .column(style={ "max-width": "500px" })
+                form.ui.large.form
+                    .ui.raised.secondary.segment
+                        .field
+                            .ui.left.icon.input
+                                i.user.icon
+                                input(type="text", name="username", placeholder="Enter your username", autofocus)
+                        .field
+                            .ui.left.icon.input
+                                i.lock.icon
+                                input(type="password", name="password", placeholder="Enter your password")
+                        .ui.fluid.large.submit.button Login
+                br
+                h2.header(style={ color: "white" }) jem
+
+    script.
+        $(() => {
+            $(".ui.form").form({
+                fields: {
+                    email: {
+                        identifier: "username",
+                        rules: [{
+                            type: "empty"
+                        }]
+                    },
+                    password: {
+                        identifier: "password",
+                        rules: [{
+                            type: "empty"
+                        }]
+                    }
+                }
+            })
+            $(".ui.form").submit((e) => {
+                e.preventDefault()
+                $.post("/login", { 
+                    username: $("input[name='username']").val(),
+                    password: $("input[name='password']").val(),
+                })
+                .then(() => window.location = "/home")
+                .catch(() => swal({
+                    title: "Wrong!",
+                    icon: "error",
+                    text: "The entered information does not match our records."
+                }))
+            })
+        })
